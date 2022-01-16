@@ -1,0 +1,58 @@
+Ohm {
+Grammar = DefName Inheritance? "{" Rule+ "}"
+Inheritance = "<:" DefName
+Rule = DefName FormalParameterList? Description? defineOp RuleBody
+Comment = CommentToEOL | MultiLineComment
+defineOp = "=" | "+=" | ":="
+RuleBody = Expr Tag?
+SingleLineComment = "//" CommentToEOL
+MultiLineComment = "/*" CommentToEOL+ "*/"
+CommentToEOL = #(commentText eol)
+
+FormalParameterList = "<" RefName CommaName ">"
+Description = "(" commentText ")"
+CommaName = ("," RefName)+
+
+Expr (Expr) = TaggedItemSequence (Alternate+)?
+Alternate (Alternate) = "|" TaggedItemSequence
+Tag (tag) = "--" TagName
+
+TaggedItemSequence = ItemSequence Tag?
+ItemSequence = Item+
+Item = Lexification
+Lexification = "#"? Prefixed
+Prefixed = Prefix? Suffixed
+Prefix = "&" | "~"
+
+Suffixed = Primary Suffix?
+Suffix = "*" | "+" | "?"
+Primary = TerminalRange | Terminal | NestedExpr | RuleApplication
+Terminal = string
+TerminalRange = Terminal ".." Terminal
+RuleApplication = RefName ActualParameterList?
+NestedExpr = "(" Expr ")"
+
+ActualParameterList = "<" Expr CommaExpr? ">"
+CommaExpr = ("," Expr)+
+TagName = name ~defineOp
+RefName = name ~defineOp
+DefName = name
+
+string = dq (stringChar+)? dq
+dq = "\""
+stringChar
+  = "\\" "n" -- newline
+  | "\\" "t" -- tab
+  | "\\" "\"" -- dquote
+  | notDQ    -- other
+notDQ = ~dq any
+
+name = nameFirst nameRest?
+nameFirst (nameFirst) = letter | "_"
+nameRest = (digit | nameFirst)+
+
+commentText = (~nl any)+ eol
+
+eol = (nl | end)
+nl = "\n"
+}
