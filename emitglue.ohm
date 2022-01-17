@@ -21,8 +21,11 @@ TaggedItemSequence = ItemSequence Tag?
 ItemSequence = Item+
 Item = Lexification
 Lexification = "#"? Prefixed
-Prefixed = Prefix? Suffixed
-Prefix = "&" | "~"
+Prefixed
+  = "~" Suffixed -- not
+  | "&" Suffixed -- lookahead
+  |     Suffixed -- noprefix
+
 
 Suffixed = Primary Suffix?
 Suffix = "*" | "+" | "?"
