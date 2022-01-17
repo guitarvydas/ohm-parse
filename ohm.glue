@@ -22,7 +22,8 @@ Description [klp commentText krp] = [[${klp} ${commentText} ${klp}]]
 CommaName [@kcomma @RefName] = [[${kcomma} ${RefName}]]
 
 Expr [TaggedItemSequence @Alternate] = [[${TaggedItemSequence} ${Alternate}]]
-Alternate [kbar TaggedItemSequence] = [[{$kbar} ${TaggedItemSequence}]]
+Alternate [kbar TaggedItemSequence] = [[${kbar} ${TaggedItemSequence}]]
+Alternate_ [@a] = [[${a}]]
 Tag [kdashdash TagName] = [[${kdashdash} ${TagName}]]
 
 TaggedItemSequence [ItemSequence @Tag] = [[${ItemSequence} ${Tag}]]
@@ -52,9 +53,9 @@ GrammarNameFollow [x] = [[${x}]]
 
 inheritanceOp [x] = [[${x}]]
 
-string [kdq1 @stringChars kdq2] = [[${kdq1}${stringChars}${kdq2}]]
+string [kdq1 @stringChar_ kdq2] = [[${kdq1}${stringChar_}${kdq2}]]
 dq [c] = [[${c}]]
-stringChars [@cs] = [[${cs}]]
+stringChar_ [@cs] = [[${cs}]]
 stringChar_newline [kss kn] = [[${kss}${kn}]]
 stringChar_tab [kss kt] = [[${kss}${kt}]]
 stringChar_dquote [kss kdq] = [[${kss}${kdq}]]
