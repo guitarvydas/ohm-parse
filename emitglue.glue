@@ -9,7 +9,7 @@ Comment [c] = [[${c}]]
 
 defineOp [s] = [[${s}]]
 
-RuleBody [Expr @Tag] = [[${Expr} ${Tag}]]
+RuleBody [Expr @Tag] = [[${Expr}]]
 
 SingleLineComment [kss CommentToEOL] = [[\n]]
 
