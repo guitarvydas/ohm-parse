@@ -34,8 +34,9 @@ NestedExpr = "(" Expr ")"
 
 ActualParameterList = "<" Expr CommaExpr? ">"
 CommaExpr = ("," Expr)+
+
 TagName = name ~defineOp
-RefName = name ~DefineFollow
+RefName = name ~defineOp
 RuleDefName = name &DefineFollow
 GrammarName = name &GrammarNameFollow
 
@@ -50,6 +51,7 @@ stringChar
   = "\\" "n" -- newline
   | "\\" "t" -- tab
   | "\\" "\"" -- dquote
+  | "\\" "\\" -- backslash
   | notDQ    -- other
 notDQ = ~dq any
 
@@ -62,4 +64,9 @@ descriptionText = (~")" any)+
 
 eol = (nl | end)
 nl = "\n"
+
+separator
+  = "<" | ">" | "(" | ")" | "[" | "]" | "\"" | "+" | "*" | "?"
+  | "<:" | "--" | "|" | "//" | "/*" | "*/" | "#" | "&" | "~" | "="
+  | "{" | "}" | end | "\n" | "\t"
 }
