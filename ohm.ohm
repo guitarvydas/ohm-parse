@@ -13,11 +13,11 @@ FormalParameterList = "<" RefName CommaName ">"
 Description = "(" descriptionText ")"
 CommaName = ("," RefName)+
 
-Expr (Expr) = TaggedItemSequence (Alternate+)?
-Alternate (Alternate) = "|" TaggedItemSequence
-Tag (tag) = "--" TagName
+Expr = TaggedItemSequence (Alternate+)?
+Alternate = "|" TaggedItemSequence
+Tag  = "--" TagName
 
-TaggedItemSequence = ItemSequence Tag?
+TaggedItemSequence = ItemSequence+ Tag?
 ItemSequence = Item+
 Item = Lexification
 Lexification = "#"? Prefixed
@@ -54,7 +54,7 @@ stringChar
 notDQ = ~dq any
 
 name = nameFirst nameRest?
-nameFirst (nameFirst) = letter | "_"
+nameFirst = letter | "_"
 nameRest = (digit | nameFirst)+
 
 commentText = (~nl any)+ eol
