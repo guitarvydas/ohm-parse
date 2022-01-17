@@ -1,0 +1,86 @@
+Grammar [DefName @Inheritance klb @Rule krb] = [[${DefName} ${Inheritance} ${klb} ${Rule} ${krb}]]
+Inheritance [kinherit DefName] = [[${kinherit} ${DefName}]]
+
+Rule [DefName @FormalParameterList @Description defineOp RuleBody] = 
+  {{ support.reset (); }}
+  [[${DefName} [${support.listFormals ()}] = \[\[${support.listRHS ()}\]\]\n]]
+
+Comment [c] = [[${c}]]
+
+defineOp [s] = [[${s}]]
+
+RuleBody [Expr @Tag] = [[${Expr}]]
+
+SingleLineComment [kss CommentToEOL] = [[\n]]
+
+MultiLineComment [ksa @CommentToEOL kas] = [[\n]]
+
+CommentToEOL [commentText eol] = [[]]
+
+FormalParameterList [klt RefName CommaName kgt] = [[${klt} ${RefName} ${CommaName} ${kgt}]]
+
+Description [klp commentText krp] = [[${klp} ${commentText} ${klp}]]
+CommaName [@kcomma @RefName] = [[${kcomma} ${RefName}]]
+
+Expr [TaggedItemSequence @Alternate] = [[${TaggedItemSequence} ${Alternate}]]
+Alternate [kbar TaggedItemSequence] = [[${kbar} ${TaggedItemSequence}]]
+Tag [kdashdash TagName] = [[${kdashdash} ${TagName}]]
+
+TaggedItemSequence [ItemSequence @Tag] = [[${ItemSequence} ${Tag}]]
+ItemSequence [@Item] = [[${Item}]]
+Item [Lexification] = [[${Lexification}]]
+Lexification [koctothorpe Prefixed] = [[${koctothorpe} ${Prefixed}]]
+Prefixed_not [knot Suffixed] = [[]]
+Prefixed_lookahead [kamp Suffixed] = [[lookahead]]
+Prefixed_noprefix [Suffixed] = [[${Suffixed}]]
+
+Suffixed_withSuffix [Primary Suffix] = [[${support.pushParam ("@" + Primary)}${support.pushRHS (Primary)}]
+Suffixed_noSuffix [Primary] = [[${support.pushParam (Primary)}${support.pushRHS (Primary)}]]
+
+Suffix [c] = [[${c}]]
+Primary [p] = [[${p}]]
+Terminal [string] = [[${string}]]
+TerminalRange [t1 kdotdot t2] = [[${t1} ${kdotdot} ${t2}]]
+RuleApplication_parameterized [RefName ActualParameterList] = [[${ActualParameterList}]]
+RuleApplication_unparameterized [RefName] = [[${RefName}]]
+NestedExpr [klp Expr krp] = [[${klp} ${Expr} ${krp}]]
+
+ActualParameterList [klt Expr @CommaExpr kgt] = [[${Expr}${CommaExpr}]]
+CommaExpr [@kcomma @Expr] = [[${kcomma} ${Expr}]]
+TagName [name] = [[${name}]]
+RefName [name] = [[${name}]]
+RuleDefName [name lookahead] = [[${name}]]
+GrammarName [name lookahead] = [[${name}]]
+
+DefineFollow [x] = [[${x}]]
+GrammarNameFollow [x] = [[${x}]]
+
+inheritanceOp [x] = [[${x}]]
+
+string [kdq1 @stringChar kdq2] = [[k${stringChar}]]
+dq [c] = [[${c}]]
+stringChar_newline [kss kn] = [[newline]]
+stringChar_tab [kss kt] = [[tag]]
+stringChar_dquote [kss kdq] = [[dquote]]
+stringChar_backslash [kss kbs] = [[backslash]]
+stringChar_lbrace [c] = [[lbrace]]
+stringChar_rbrace [c] = [[rbrace]]
+stringChar_lpar [c] = [[lpar]]
+stringChar_rpar [c] = [[rpar]]
+stringChar_lbracket [c] = [[lbracket]]
+stringChar_rbracket [c] = [[rbracket]]
+stringChar_lt [c] = [[lt]]
+stringChar_gt [c] = [[gt]]
+stringChar_colon [c] = [[colon]]
+stringChar_other [x] = [[${x}]]
+notDQ [any] = [[${any}]]
+
+name [nameFirst @nameRest] = [[${nameFirst}${nameRest}]]
+nameFirst [c] = [[${c}]]
+nameRest [@cs] = [[${cs}]]
+
+commentText [@any eol] = [[${any} ${eol}]]
+descriptionText [@any] = [[${any}]]
+
+eol [c] = [[${c}]]
+nl [c] = [[${c}]]
