@@ -13,8 +13,7 @@ FormalParameterList = "<" RefName CommaName ">"
 Description = "(" descriptionText ")"
 CommaName = ("," RefName)+
 
-Expr = TaggedItemSequence (Alternate_)?
-Alternate_ = Alternate+
+Expr = TaggedItemSequence Alternate*
 Alternate = "|" TaggedItemSequence
 Tag  = "--" TagName
 
@@ -46,9 +45,8 @@ GrammarNameFollow = inheritanceOp | "{"
 
 inheritanceOp = "<:"
 
-string = dq (stringChar_)? dq
+string = dq stringChar* dq
 dq = "\""
-stringChar_ = stringChar+
 stringChar
   = "\\" "n" -- newline
   | "\\" "t" -- tab

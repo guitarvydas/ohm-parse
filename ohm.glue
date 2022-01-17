@@ -23,7 +23,6 @@ CommaName [@kcomma @RefName] = [[${kcomma} ${RefName}]]
 
 Expr [TaggedItemSequence @Alternate] = [[${TaggedItemSequence} ${Alternate}]]
 Alternate [kbar TaggedItemSequence] = [[${kbar} ${TaggedItemSequence}]]
-Alternate_ [@a] = [[${a}]]
 Tag [kdashdash TagName] = [[${kdashdash} ${TagName}]]
 
 TaggedItemSequence [ItemSequence @Tag] = [[${ItemSequence} ${Tag}]]
@@ -53,9 +52,8 @@ GrammarNameFollow [x] = [[${x}]]
 
 inheritanceOp [x] = [[${x}]]
 
-string [kdq1 @stringChar_ kdq2] = [[${kdq1}${stringChar_}${kdq2}]]
+string [kdq1 @stringChar kdq2] = [[${kdq1}${stringChar}${kdq2}]]
 dq [c] = [[${c}]]
-stringChar_ [@cs] = [[${cs}]]
 stringChar_newline [kss kn] = [[${kss}${kn}]]
 stringChar_tab [kss kt] = [[${kss}${kt}]]
 stringChar_dquote [kss kdq] = [[${kss}${kdq}]]
