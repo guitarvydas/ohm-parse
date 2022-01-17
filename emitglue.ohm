@@ -27,12 +27,17 @@ Prefixed
   |     Suffixed -- noprefix
 
 
-Suffixed = Primary Suffix?
+Suffixed
+  = Primary Suffix -- withSuffix
+  | Primary        -- noSuffix
+
 Suffix = "*" | "+" | "?"
 Primary = TerminalRange | Terminal | NestedExpr | RuleApplication
 Terminal = string
 TerminalRange = Terminal ".." Terminal
-RuleApplication = RefName ActualParameterList?
+RuleApplication
+  = RefName ActualParameterList -- parameterized
+  | RefName                     -- unparameterized
 NestedExpr = "(" Expr ")"
 
 ActualParameterList = "<" Expr CommaExpr? ">"

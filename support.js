@@ -8,8 +8,25 @@ exports.reset = function () {
 
 exports.pushParam = function (s) {
     paramStack.push (s);
+    return "";
 }
 
-exports.pushFormat = function (s) {
+exports.pushRHS = function (s) {
     formatStack.push (s);
+    return "";
+}
+
+exports.listFormals = function () {
+    let result = "";
+    paramStack.forEach (name => {
+	result = result + " " + name;
+    });
+    return result;
+}
+exports.listRHS = function () {
+    let result = "";
+    formatStack.forEach (name => {
+	result = result + " ${" + name + "}";
+    });
+    return result;
 }
