@@ -2,7 +2,8 @@ Grammar [DefName @Inheritance klb @Rule krb] = [[${DefName} ${Inheritance} ${klb
 Inheritance [kinherit DefName] = [[${kinherit} ${DefName}]]
 
 Rule [DefName @FormalParameterList @Description defineOp RuleBody] = 
-[[${DefName} ${FormalParameterList} ${Description} ${defineOp} ${RuleBody}\n]]
+  {{ support.reset (); }}
+  [[${DefName} [${FormalParameterList}] = \[\[${RuleBody}\]\]\n]]
 
 Comment [c] = [[${c}]]
 
@@ -10,9 +11,9 @@ defineOp [s] = [[${s}]]
 
 RuleBody [Expr @Tag] = [[${Expr} ${Tag}]]
 
-SingleLineComment [kss CommentToEOL] = [[${kss} ${CommentToEOL}]]
+SingleLineComment [kss CommentToEOL] = [[]]
 
-MultiLineComment [ksa @CommentToEOL kas] = [[${ksa} ${CommentToEOL} ${kas}]]
+MultiLineComment [ksa @CommentToEOL kas] = [[]]
 
 CommentToEOL [commentText eol] = [[${commentText} ${eol}]]
 
