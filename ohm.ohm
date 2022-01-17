@@ -59,14 +59,11 @@ name = nameFirst nameRest?
 nameFirst = letter | "_"
 nameRest = (digit | nameFirst)+
 
-commentText = (~nl any)+ eol
+commentText = (~nl any)+ &eol
 descriptionText = (~")" any)+
 
 eol = (nl | end)
 nl = "\n"
 
-separator
-  = "<" | ">" | "(" | ")" | "[" | "]" | "\"" | "+" | "*" | "?"
-  | "<:" | "--" | "|" | "//" | "/*" | "*/" | "#" | "&" | "~" | "="
-  | "{" | "}" | end | "\n" | "\t"
+
 }

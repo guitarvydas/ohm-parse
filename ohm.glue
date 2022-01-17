@@ -6,7 +6,7 @@ Rule [DefName @FormalParameterList @Description defineOp RuleBody] =
 
 Comment [c] = [[${c}]]
 
-defineOp [s] = [[${c}]]
+defineOp [s] = [[${s}]]
 
 RuleBody [Expr @Tag] = [[${Expr} ${Tag}]]
 
@@ -23,7 +23,7 @@ CommaName [@kcomma @RefName] = [[${kcomma} ${RefName}]]
 
 Expr [TaggedItemSequence @Alternate] = [[${TaggedItemSequence} ${Alternate}]]
 Alternate [kbar TaggedItemSequence] = [[{$kbar} ${TaggedItemSequence}]]
-Tag [kdashdash Tagname] = [[${kdashdash} ${TagName}]]
+Tag [kdashdash TagName] = [[${kdashdash} ${TagName}]]
 
 TaggedItemSequence [ItemSequence @Tag] = [[${ItemSequence} ${Tag}]]
 ItemSequence [@Item] = [[${Item}]]
@@ -40,25 +40,33 @@ TerminalRange [t1 kdotdot t2] = [[${t1} ${kdotdot} ${t2}]]
 RuleApplication [RefName @ActualParameterList] = [[${RefName} ${ActualParameterList}]]
 NestedExpr [klp Expr krp] = [[${klp} ${Expr} ${krp}]]
 
-ActualParameterList [klt Expr CommaExpr kgt] = [[${klt}${Expr}${CommaExpr}${kgt}]]
+ActualParameterList [klt Expr @CommaExpr kgt] = [[${klt}${Expr}${CommaExpr}${kgt}]]
 CommaExpr [@kcomma @Expr] = [[${kcomma} ${Expr}]]
 TagName [name] = [[${name}]]
 RefName [name] = [[${name}]]
-DefName [name] = [[${name}]]
+RuleDefName [name lookahead] = [[${name}]]
+GrammarName [name lookahead] = [[${name}]]
+
+DefineFollow [x] = [[${x}]]
+GrammarNameFollow [x] = [[${x}]]
+
+inheritanceOp [x] = [[${x}]]
 
 string [kdq1 @stringChar kdq2] = [[${kdq1} ${stringChar} ${kdq2}]]
 dq [c] = [[${c}]]
 stringChar_newline [kss kn] = [[${kss} ${kn}]]
-stringChar_newline [kss kt] = [[${kss} ${kt}]]
-stringChar_newline [kss kdq] = [[${kss} ${kdq}]]
+stringChar_tab [kss kt] = [[${kss} ${kt}]]
+stringChar_dquote [kss kdq] = [[${kss} ${kdq}]]
+stringChar_backslash [kss kbs] = [[${kss} ${kbs}]]
 stringChar_other [x] = [[${x}]]
 notDQ [any] = [[${any}]]
 
-name [nameFirst @nameRest] = [[${name} ${nameRest}]]
+name [nameFirst @nameRest] = [[${nameFirst}${nameRest}]]
 nameFirst [c] = [[${c}]]
 nameRest [@cs] = [[${cs}]]
 
 commentText [@any eol] = [[${any} ${eol}]]
+descriptionText [@any] = [[${any}]]
 
 eol [c] = [[${c}]]
 nl [c] = [[${c}]]
