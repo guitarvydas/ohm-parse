@@ -17,7 +17,7 @@ Expr = TaggedItemSequence (Alternate+)?
 Alternate = "|" TaggedItemSequence
 Tag  = "--" TagName
 
-TaggedItemSequence = ItemSequence+ Tag?
+TaggedItemSequence = ItemSequence Tag?
 ItemSequence = Item+
 Item = Lexification
 Lexification = "#"? Prefixed
