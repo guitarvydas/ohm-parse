@@ -52,6 +52,15 @@ stringChar
   | "\\" "t" -- tab
   | "\\" "\"" -- dquote
   | "\\" "\\" -- backslash
+  | "{" -- lbrace
+  | "}" -- rbrace
+  | "(" -- lpar
+  | ")" -- rpar
+  | "[" -- lbracket
+  | "]" -- rbracket
+  | "<" -- lt
+  | ">" -- gt
+  | ":" -- colon
   | notDQ    -- other
 notDQ = ~dq any
 
@@ -67,3 +76,4 @@ nl = "\n"
 
 
 }
+
