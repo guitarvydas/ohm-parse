@@ -45,8 +45,9 @@ GrammarNameFollow = inheritanceOp | "{"
 
 inheritanceOp = "<:"
 
-string = dq (stringChar+)? dq
+string = dq (stringChars)? dq
 dq = "\""
+stringChars = stringChar+
 stringChar
   = "\\" "n" -- newline
   | "\\" "t" -- tab

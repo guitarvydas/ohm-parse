@@ -2,7 +2,7 @@ Grammar [DefName @Inheritance klb @Rule krb] = [[${DefName} ${Inheritance} ${klb
 Inheritance [kinherit DefName] = [[${kinherit} ${DefName}]]
 
 Rule [DefName @FormalParameterList @Description defineOp RuleBody] = 
-[[${DefName} ${FormalParameterList} ${Description} ${defineOp} ${RuleBody}]]
+[[${DefName} ${FormalParameterList} ${Description} ${defineOp} ${RuleBody}\n]]
 
 Comment [c] = [[${c}]]
 
@@ -52,12 +52,13 @@ GrammarNameFollow [x] = [[${x}]]
 
 inheritanceOp [x] = [[${x}]]
 
-string [kdq1 @stringChar kdq2] = [[${kdq1} ${stringChar} ${kdq2}]]
+string [kdq1 @stringChars kdq2] = [[${kdq1}${stringChars}${kdq2}]]
 dq [c] = [[${c}]]
-stringChar_newline [kss kn] = [[${kss} ${kn}]]
-stringChar_tab [kss kt] = [[${kss} ${kt}]]
-stringChar_dquote [kss kdq] = [[${kss} ${kdq}]]
-stringChar_backslash [kss kbs] = [[${kss} ${kbs}]]
+stringChars [@cs] = [[${cs}]]
+stringChar_newline [kss kn] = [[${kss}${kn}]]
+stringChar_tab [kss kt] = [[${kss}${kt}]]
+stringChar_dquote [kss kdq] = [[${kss}${kdq}]]
+stringChar_backslash [kss kbs] = [[${kss}${kbs}]]
 stringChar_other [x] = [[${x}]]
 notDQ [any] = [[${any}]]
 
