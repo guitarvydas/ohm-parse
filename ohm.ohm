@@ -1,7 +1,7 @@
 Ohm {
-Grammar = DefName Inheritance? "{" Rule+ "}"
-Inheritance = "<:" DefName
-Rule = DefName FormalParameterList? Description? defineOp RuleBody
+Grammar = GrammarName Inheritance? "{" Rule+ "}"
+Inheritance = inheritanceOp GrammarName
+Rule = RuleDefName FormalParameterList? Description? defineOp RuleBody+
 Comment = CommentToEOL | MultiLineComment
 defineOp = "=" | "+=" | ":="
 RuleBody = Expr Tag?
@@ -10,7 +10,7 @@ MultiLineComment = "/*" CommentToEOL+ "*/"
 CommentToEOL = #(commentText eol)
 
 FormalParameterList = "<" RefName CommaName ">"
-Description = "(" commentText ")"
+Description = "(" descriptionText ")"
 CommaName = ("," RefName)+
 
 Expr (Expr) = TaggedItemSequence (Alternate+)?
@@ -35,8 +35,14 @@ NestedExpr = "(" Expr ")"
 ActualParameterList = "<" Expr CommaExpr? ">"
 CommaExpr = ("," Expr)+
 TagName = name ~defineOp
-RefName = name ~defineOp
-DefName = name
+RefName = name ~DefineFollow
+RuleDefName = name &DefineFollow
+GrammarName = name &GrammarNameFollow
+
+DefineFollow = defineOp | Description | FormalParameterList
+GrammarNameFollow = inheritanceOp | "{"
+
+inheritanceOp = "<:"
 
 string = dq (stringChar+)? dq
 dq = "\""
@@ -52,6 +58,7 @@ nameFirst (nameFirst) = letter | "_"
 nameRest = (digit | nameFirst)+
 
 commentText = (~nl any)+ eol
+descriptionText = (~")" any)+
 
 eol = (nl | end)
 nl = "\n"

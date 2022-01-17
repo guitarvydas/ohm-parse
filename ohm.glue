@@ -1,5 +1,4 @@
-Ohm {
-Grammar [DefName @Inheritance klb @Rule krb = [[${DefName} ${Inheritance} ${klb} ${Rule} ${krb}]]
+Grammar [DefName @Inheritance klb @Rule krb] = [[${DefName} ${Inheritance} ${klb} ${Rule} ${krb}]]
 Inheritance [kinherit DefName] = [[${kinherit} ${DefName}]]
 
 Rule [DefName @FormalParameterList @Description defineOp RuleBody] = 
@@ -11,7 +10,7 @@ defineOp [s] = [[${c}]]
 
 RuleBody [Expr @Tag] = [[${Expr} ${Tag}]]
 
-SingleLineComment [kss CommentToEOL] [[${kss} ${CommentToEOL}]]
+SingleLineComment [kss CommentToEOL] = [[${kss} ${CommentToEOL}]]
 
 MultiLineComment [ksa @CommentToEOL kas] = [[${ksa} ${CommentToEOL} ${kas}]]
 
@@ -30,7 +29,7 @@ TaggedItemSequence [ItemSequence @Tag] = [[${ItemSequence} ${Tag}]]
 ItemSequence [@Item] = [[${Item}]]
 Item [Lexification] = [[${Lexification}]]
 Lexification [koctothorpe Prefixed] = [[${koctothorpe} ${Prefixed}]]
-Prefixed = [@Prefix Suffixed] = [[${Prefix} ${Suffixed}]]
+Prefixed [@Prefix Suffixed] = [[${Prefix} ${Suffixed}]]
 Prefix [c] = [[${c}]]
 
 Suffixed [Primary Suffix] = [[${Primary} ${Suffix}]]
@@ -63,4 +62,3 @@ commentText [@any eol] = [[${any} ${eol}]]
 
 eol [c] = [[${c}]]
 nl [c] = [[${c}]]
-}
