@@ -1,20 +1,21 @@
 Grammar [DefName @Inheritance klb @Rule krb] = [[${DefName} ${Inheritance} ${klb} ${Rule} ${krb}]]
 Inheritance [kinherit DefName] = [[${kinherit} ${DefName}]]
 
-Rule [DefName @FormalParameterList @Description defineOp RuleBody] = 
-[[${DefName} ${FormalParameterList} ${Description} ${defineOp} ${RuleBody}\n]]
+Rule [DefName @FormalParameterList @Description defineOp @RuleBody] = 
+  {{ support.reset (); }}
+  [[${DefName} [${support.listFormals ()}] = \[\[${support.listRHS ()}\]\]\n]]
 
 Comment [c] = [[${c}]]
 
 defineOp [s] = [[${s}]]
 
-RuleBody [Expr @Tag] = [[${Expr} ${Tag}]]
+RuleBody [Expr @Tag] = [[${Expr}]]
 
-SingleLineComment [kss CommentToEOL] = [[${kss} ${CommentToEOL}]]
+SingleLineComment [kss CommentToEOL] = [[\n]]
 
-MultiLineComment [ksa @CommentToEOL kas] = [[${ksa} ${CommentToEOL} ${kas}]]
+MultiLineComment [ksa @CommentToEOL kas] = [[\n]]
 
-CommentToEOL [commentText eol] = [[${commentText} ${eol}]]
+CommentToEOL [commentText eol] = [[]]
 
 FormalParameterList [klt RefName CommaName kgt] = [[${klt} ${RefName} ${CommaName} ${kgt}]]
 
@@ -29,19 +30,22 @@ TaggedItemSequence [ItemSequence @Tag] = [[${ItemSequence} ${Tag}]]
 ItemSequence [@Item] = [[${Item}]]
 Item [Lexification] = [[${Lexification}]]
 Lexification [koctothorpe Prefixed] = [[${koctothorpe} ${Prefixed}]]
-Prefixed_not [knot Suffixed] = [[]]
-Prefixed_lookahead [kamp Suffixed] = [[lookahead]]
+Prefixed_not [knot Suffixed] = [[${Suffixed}]]
+Prefixed_lookahead [kamp Suffixed] = [[lookahead${Suffixed}]]
 Prefixed_noprefix [Suffixed] = [[${Suffixed}]]
 
-Suffixed [Primary Suffix] = [[${Primary} ${Suffix}]]
+Suffixed_withSuffix [Primary Suffix] = [[${support.pushParam ("@" + Primary)}${support.pushRHS (Primary)}]]
+Suffixed_noSuffix [Primary] = [[${support.pushParam (Primary)}${support.pushRHS (Primary)}]]
+
 Suffix [c] = [[${c}]]
 Primary [p] = [[${p}]]
 Terminal [string] = [[${string}]]
 TerminalRange [t1 kdotdot t2] = [[${t1} ${kdotdot} ${t2}]]
-RuleApplication [RefName @ActualParameterList] = [[${RefName} ${ActualParameterList}]]
+RuleApplication_parameterized [RefName ActualParameterList] = [[${ActualParameterList}]]
+RuleApplication_unparameterized [RefName] = [[${RefName}]]
 NestedExpr [klp Expr krp] = [[${klp} ${Expr} ${krp}]]
 
-ActualParameterList [klt Expr @CommaExpr kgt] = [[${klt}${Expr}${CommaExpr}${kgt}]]
+ActualParameterList [klt Expr @CommaExpr kgt] = [[${Expr}]]
 CommaExpr [@kcomma @Expr] = [[${kcomma} ${Expr}]]
 TagName [name] = [[${name}]]
 RefName [name] = [[${name}]]
