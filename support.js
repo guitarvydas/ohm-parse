@@ -30,3 +30,7 @@ exports.listRHS = function () {
     });
     return result;
 }
+
+exports.trace = function (s) {
+    console.error (s);
+}

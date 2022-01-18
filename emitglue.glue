@@ -1,7 +1,7 @@
 Grammar [DefName @Inheritance klb @Rule krb] = [[${DefName} ${Inheritance} ${klb} ${Rule} ${krb}]]
 Inheritance [kinherit DefName] = [[${kinherit} ${DefName}]]
 
-Rule [DefName @FormalParameterList @Description defineOp RuleBody] = 
+Rule [DefName @FormalParameterList @Description defineOp @RuleBody] = 
   {{ support.reset (); }}
   [[${DefName} [${support.listFormals ()}] = \[\[${support.listRHS ()}\]\]\n]]
 
@@ -30,11 +30,11 @@ TaggedItemSequence [ItemSequence @Tag] = [[${ItemSequence} ${Tag}]]
 ItemSequence [@Item] = [[${Item}]]
 Item [Lexification] = [[${Lexification}]]
 Lexification [koctothorpe Prefixed] = [[${koctothorpe} ${Prefixed}]]
-Prefixed_not [knot Suffixed] = [[]]
-Prefixed_lookahead [kamp Suffixed] = [[lookahead]]
+Prefixed_not [knot Suffixed] = [[${Suffixed}]]
+Prefixed_lookahead [kamp Suffixed] = [[lookahead${Suffixed}]]
 Prefixed_noprefix [Suffixed] = [[${Suffixed}]]
 
-Suffixed_withSuffix [Primary Suffix] = [[${support.pushParam ("@" + Primary)}${support.pushRHS (Primary)}]
+Suffixed_withSuffix [Primary Suffix] = [[${support.pushParam ("@" + Primary)}${support.pushRHS (Primary)}]]
 Suffixed_noSuffix [Primary] = [[${support.pushParam (Primary)}${support.pushRHS (Primary)}]]
 
 Suffix [c] = [[${c}]]

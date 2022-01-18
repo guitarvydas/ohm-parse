@@ -27,11 +27,12 @@ Prefixed
   |     Suffixed -- noprefix
 
 
+Suffix = "*" | "+" | "?"
+
 Suffixed
   = Primary Suffix -- withSuffix
   | Primary        -- noSuffix
 
-Suffix = "*" | "+" | "?"
 Primary = TerminalRange | Terminal | NestedExpr | RuleApplication
 Terminal = string
 TerminalRange = Terminal ".." Terminal
