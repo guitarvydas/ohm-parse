@@ -45,7 +45,7 @@ RuleApplication_parameterized [RefName ActualParameterList] = [[${ActualParamete
 RuleApplication_unparameterized [RefName] = [[${RefName}]]
 NestedExpr [klp Expr krp] = [[${klp} ${Expr} ${krp}]]
 
-ActualParameterList [klt Expr @CommaExpr kgt] = [[${Expr}${CommaExpr}]]
+ActualParameterList [klt Expr @CommaExpr kgt] = [[${Expr}]]
 CommaExpr [@kcomma @Expr] = [[${kcomma} ${Expr}]]
 TagName [name] = [[${name}]]
 RefName [name] = [[${name}]]
